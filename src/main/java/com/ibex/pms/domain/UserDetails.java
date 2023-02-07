@@ -4,23 +4,26 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@ToString
+public class UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long  id;
+    private  long  id;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String password;
-
+    private String phoneNumber;
     @OneToOne
-    private Role role;
-
-    @OneToOne
-    private UserDetails userDetails;
-
+    private Address address;
+    @OneToMany
+    private List<Property> propertyList;
 }
