@@ -3,6 +3,7 @@ package com.ibex.pms.service.Impl;
 import com.ibex.pms.domain.Property;
 import com.ibex.pms.domain.UserDetails;
 import com.ibex.pms.domain.dto.PropertyDto;
+import com.ibex.pms.exceptions.ResourceNotFoundException;
 import com.ibex.pms.repository.PropertyRepo;
 import com.ibex.pms.repository.PropertySearchDao;
 import com.ibex.pms.repository.UserDetailsRepo;
@@ -27,7 +28,7 @@ public class PropertyServiceImpl implements PropertyService {
 
 private PropertySearchDao propertySearchDao;
 
-// List<PostDTO> postDtoList = Arrays.asList(modelMapper.map(postEntityList, PostDTO[].class));
+
 
     @Override
     public List<PropertyDto> getAllProperty() {
@@ -76,7 +77,8 @@ private PropertySearchDao propertySearchDao;
     @Override
     public void updatePropertyByUserId(Property property, long userId){
 
-         UserDetails user = userDetailsRepo.findById(userId).orElse(null);
+         UserDetails user = userDetailsRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Property not found with id:" + userId));
+
 
         List<Property> prop =  user.getPropertyList();
 
@@ -90,9 +92,9 @@ private PropertySearchDao propertySearchDao;
     public List<PropertyDto> getPropertyByCriteria(double price, int lotSize, int numberOfBedRooms, int numberOfBaths) {
 
         List<Property>  prop  = propertySearchDao.findAllBySimpleQuery(price, lotSize, numberOfBedRooms, numberOfBaths);
-        List<PropertyDto> propDtoo = Arrays.asList(mapper.map(prop, PropertyDto[].class));
+        List<PropertyDto> propDto = Arrays.asList(mapper.map(prop, PropertyDto[].class));
 
-        return  propDtoo;
+        return  propDto;
 
     }
 
