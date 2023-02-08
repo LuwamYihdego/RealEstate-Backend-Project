@@ -2,15 +2,16 @@ package com.ibex.pms.service;
 
 import com.ibex.pms.domain.Property;
 import com.ibex.pms.domain.UserDetails;
+import com.ibex.pms.domain.dto.PropertyDto;
 
 import java.util.List;
 
 public interface PropertyService {
 
 
-    List<Property> getAllProperty();
+     List<PropertyDto> getAllProperty();
 
-    Property getPropertyById(long id);
+    PropertyDto getPropertyById(long id);
 
     void deletePropertyById(long id);
 
@@ -19,6 +20,9 @@ public interface PropertyService {
      void updatePropertyById(Property property, long id);
 
     public void updatePropertyByUserId(Property property, long userId);
+
+    List<PropertyDto> getPropertyByCriteria(double price, int lotSize, int numberOfBedRooms, int numberOfBaths);
+
 
 
 }
