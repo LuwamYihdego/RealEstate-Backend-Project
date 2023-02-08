@@ -13,6 +13,6 @@ public class PropertyDto {
     private int lotSize;
     private int numberOfBedRooms;
     private int numberOfBaths;
-    private StatusDto statu;
+    private StatusDto status;
     private AddressDto address;
 }
