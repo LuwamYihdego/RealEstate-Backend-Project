@@ -1,5 +1,10 @@
 package com.ibex.pms.domain.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
 public enum StatusDto {
     AVAILABE(1),
     PENDING(2),
