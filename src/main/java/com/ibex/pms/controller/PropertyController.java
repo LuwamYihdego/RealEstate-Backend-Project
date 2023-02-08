@@ -14,8 +14,7 @@ import java.util.List;
 public class PropertyController {
     @Autowired
     PropertyService propertyService;
-    @Autowired
-    private PropertyRepo propertyRepo;
+
 
     @GetMapping
     public List<PropertyDto> getAllProperties(){
@@ -51,8 +50,8 @@ public class PropertyController {
     public void addPropertyByUserId(@RequestBody Property property, @PathVariable long userId){
         propertyService.updatePropertyByUserId(property, userId);
     }
-
-    public List<PropertyDto> getPropertyByCriteria(double price, int lotSize, int numberOfBedRooms, int numberOfBaths){
+    @GetMapping("/search")
+    public List<PropertyDto> getPropertyByCriteria(@RequestParam double price, @RequestParam int lotSize, @RequestParam int numberOfBedRooms, @RequestParam int numberOfBaths){
         return propertyService.getPropertyByCriteria(price,lotSize,numberOfBedRooms,numberOfBaths);
     }
 

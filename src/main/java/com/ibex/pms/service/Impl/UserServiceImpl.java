@@ -18,26 +18,7 @@ public class UserServiceImpl implements UserService {
     UserRepo userRepo;
     @Autowired
     ModelMapper mapper;
-    @Override
-    public UserDto getCustomerById(long id) {
 
-        User user = userRepo.findById(id).orElse(null);
-        UserDto userDto = mapper.map(user, UserDto.class);
-        return userDto;
-    }
-
-    @Override
-    public UserDto getOwnerById(long id) {
-        User user = userRepo.findAll().stream().filter(u -> u.getId()==id && u.getRole().equals("owner")).findAny().get();
-        UserDto userDto = mapper.map(user, UserDto.class);
-        return userDto;
-    }
-
-    @Override
-    public void update(User user, long id) {
-
-    }
-    // List<PostDTO> postDtoList = Arrays.asList(modelMapper.map(postEntityList, PostDTO[].class));
     @Override
     public List<UserDto> getAllUsers() {
 
@@ -58,6 +39,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto getCustomerById(long id) {
+
+        User user = userRepo.findById(id).orElse(null);
+        UserDto userDto = mapper.map(user, UserDto.class);
+        return userDto;
+    }
+
+    @Override
+    public void deleteCustomerById(long id) {
+
+        User user =  userRepo.findAll()
+                .stream()
+                .filter(s->s.getId()==id && s.getRole().equals("customer")).findFirst().orElse(null);
+
+        user.setDeleted(Boolean.TRUE);
+        user.setActive(Boolean.FALSE);
+
+
+    }
+
+
+    @Override
     public List<UserDto> getAllOwners() {
 
         List<User> owners = userRepo.findAll().stream().filter(c -> c.getRole().equals("owner")).collect(Collectors.toList());
@@ -67,30 +70,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> getAllAdmin() {
-        List<User> admins = userRepo.findAll().stream().filter(c -> c.getRole().equals("admin")).collect(Collectors.toList());
-        List<UserDto> usersDto = Arrays.asList(mapper.map(admins, UserDto[].class));
-
-        return usersDto;
+    public UserDto getOwnerById(long id) {
+        User user = userRepo.findAll().stream().filter(u -> u.getId()==id && u.getRole().equals("owner")).findAny().get();
+        UserDto userDto = mapper.map(user, UserDto.class);
+        return userDto;
     }
 
-    @Override
-    public boolean isEmailExist(String email) {
-        return false;
-    }
-
-    @Override
-    public void deleteCustomerById(long id) {
-
-       User user =  userRepo.findAll()
-                .stream()
-                .filter(s->s.getId()==id && s.getRole().equals("customer")).findFirst().orElse(null);
-
-       user.setDeleted(Boolean.TRUE);
-       user.setActive(Boolean.FALSE);
-
-
-    }
     @Override
     public void deleteOwnerById(long id) {
 
@@ -104,6 +89,33 @@ public class UserServiceImpl implements UserService {
 
 
     }
+
+    @Override
+    public List<UserDto> getAllAdmin() {
+        List<User> admins = userRepo.findAll().stream().filter(c -> c.getRole().equals("admin")).collect(Collectors.toList());
+        List<UserDto> usersDto = Arrays.asList(mapper.map(admins, UserDto[].class));
+
+        return usersDto;
+    }
+
+    public  UserDto getAdminById(long id){
+        User admin = userRepo.findAll().stream().filter(u -> u.getId()==id && u.getRole().equals("admin")).findAny().get();
+        UserDto adminDto = mapper.map(admin, UserDto.class);
+        return adminDto;
+    }
+
+
+    public void deleteAdminById(long id){
+        User admin =  userRepo.findAll()
+                .stream()
+                .filter(s->s.getId()==id && s.getRole().equals("admin")).findFirst().orElse(null);
+
+        admin.setDeleted(Boolean.TRUE);
+        admin.setActive(Boolean.FALSE);
+
+    }
+
+
 
     @Override
     public void createUser(User user) {
@@ -132,4 +144,21 @@ public class UserServiceImpl implements UserService {
 
 
     }
+
+
+
+
+    // List<PostDTO> postDtoList = Arrays.asList(modelMapper.map(postEntityList, PostDTO[].class));
+
+
+
+
+
+
+
+
+
+
+
+
 }
