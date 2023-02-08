@@ -26,6 +26,9 @@ public class Property {
     @OneToOne(fetch = FetchType.EAGER)
     private Address address;
     private Status status;
+    @ManyToOne()
+    @JoinColumn(name="userDetails_id")
+    private UserDetails userDetails;
 
 
 

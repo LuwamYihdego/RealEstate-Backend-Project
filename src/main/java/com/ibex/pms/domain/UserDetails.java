@@ -24,6 +24,6 @@ public class UserDetails {
     private String phoneNumber;
     @OneToOne
     private Address address;
-    @OneToMany
+    @OneToMany(mappedBy = "userDetails")
     private List<Property> propertyList;
 }
