@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PropertyDto {
-    private int id;
+
     private double price;
     private int lotSize;
     private int numberOfBedRooms;
