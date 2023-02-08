@@ -20,7 +20,11 @@ public class User {
     @OneToOne
     private Role role;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private UserDetails userDetails;
+
+    private boolean isActive = Boolean.TRUE;
+
+    private boolean isDeleted = Boolean.FALSE;
 
 }
