@@ -1,5 +1,6 @@
 package com.ibex.pms.domain;
 
+import com.ibex.pms.enums.OfferAcceptance;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
