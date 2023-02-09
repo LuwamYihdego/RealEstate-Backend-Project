@@ -146,11 +146,14 @@ public class UserServiceImpl implements UserService {
     public void updateUserById(User user, long id) {
 
         User u = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id:" + id));
-
+        u.setFirstName(user.getFirstName());
+        u.setLastName(user.getLastName());
+        u.setPhoneNumber(user.getPhoneNumber());
         u.setRole(user.getRole());
-        //u.setUserDetails(user.getUserDetails());
         u.setEmail(user.getEmail());
         u.setPassword(user.getPassword());
+        u.setAddress(user.getAddress());
+        u.setPropertyList(user.getPropertyList());
 
 
 

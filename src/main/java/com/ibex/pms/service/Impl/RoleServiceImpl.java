@@ -2,6 +2,7 @@ package com.ibex.pms.service.Impl;
 
 import com.ibex.pms.domain.Address;
 import com.ibex.pms.domain.Role;
+import com.ibex.pms.exceptions.ResourceNotFoundException;
 import com.ibex.pms.repository.AddressRepo;
 import com.ibex.pms.repository.RoleRepo;
 import com.ibex.pms.service.AddressService;
@@ -13,23 +14,24 @@ import java.util.List;
 
 @Service
 public class RoleServiceImpl implements RoleService {
-    RoleRepo repo;
+    RoleRepo roleRepo;
     public RoleServiceImpl(RoleRepo repo){
-        this.repo = repo;
+        this.roleRepo = repo;
     }
     public List<Role> getAll() {
-        return repo.findAll();
+        return roleRepo.findAll();
     }
     public Role getById(long id){
-        return repo.findById(id).get();
+        return roleRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Offer not found with id:" + id));
     }
     public void deleteById(long id){
-        repo.deleteById(id);
+        roleRepo.deleteById(id);
     }
     public void  save(Role role){
-        repo.save(role);
+        roleRepo.save(role);
     }
     public void  update(long id, Role role){
-        //TODO: Implement
+        Role r = roleRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Offer not found with id:" + id));
+        r.setRole(role.getRole());
     }
 }

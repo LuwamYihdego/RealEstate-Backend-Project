@@ -16,7 +16,7 @@ public class Offer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne
+    @ManyToOne()
     private Property property;
     @ManyToOne
     private User buyer;

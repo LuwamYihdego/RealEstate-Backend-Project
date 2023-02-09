@@ -15,6 +15,7 @@ public class UserController {
     UserService userService;
     @GetMapping()
     public List<UserDto> getAllUsers(){
+
        return  userService.getAllUsers();
     }
     @GetMapping("/customers")
@@ -57,6 +58,7 @@ public class UserController {
 
     @GetMapping("/admins")
     public List<UserDto> getAllAdmins(){
+
         return userService.getAllAdmin();
     }
 

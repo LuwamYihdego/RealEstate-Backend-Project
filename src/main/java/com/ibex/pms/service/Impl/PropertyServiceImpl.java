@@ -10,6 +10,7 @@ import com.ibex.pms.repository.PropertySearchDao;
 import com.ibex.pms.repository.UserRepo;
 import com.ibex.pms.service.PropertyService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -17,16 +18,16 @@ import java.util.List;
 
 @Service
 public class PropertyServiceImpl implements PropertyService {
-    //@Autowired
+
     PropertyRepo propertyRepo;
-    //@Autowired
-    //private UserDetailsRepo userDetailsRepo;
+
 
     //@Autowired
     private UserRepo userRepo;
     //@Autowired
     private ModelMapper mapper;
 
+    @Autowired
     public PropertyServiceImpl(PropertyRepo propertyRepo,
                                //UserDetailsRepo userDetailsRepo,
                                UserRepo userRepo,
@@ -36,6 +37,7 @@ public class PropertyServiceImpl implements PropertyService {
         this.mapper = mapper;
     }
 
+    @Autowired
     private PropertySearchDao propertySearchDao;
 
 

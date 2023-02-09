@@ -2,6 +2,7 @@ package com.ibex.pms.service.Impl;
 
 import com.ibex.pms.domain.Address;
 import com.ibex.pms.domain.Offer;
+import com.ibex.pms.exceptions.ResourceNotFoundException;
 import com.ibex.pms.repository.AddressRepo;
 import com.ibex.pms.repository.OfferRepo;
 import com.ibex.pms.service.AddressService;
@@ -13,23 +14,31 @@ import java.util.List;
 
 @Service
 public class OfferServiceImpl implements OfferService {
-    OfferRepo repo;
+    OfferRepo offerRepo;
+
+    @Autowired
     public OfferServiceImpl(OfferRepo repo){
-        this.repo = repo;
+        this.offerRepo = repo;
     }
     public List<Offer> getAll() {
-        return repo.findAll();
+        return offerRepo.findAll();
     }
     public Offer getById(long id){
-        return repo.findById(id).get();
+        return offerRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Offer not found with id:" + id));
     }
     public void deleteById(long id){
-        repo.deleteById(id);
+        offerRepo.deleteById(id);
     }
     public void  save(Offer offer){
-        repo.save(offer);
+        offerRepo.save(offer);
     }
     public void  update(long id, Offer offer){
-        //TODO: Implement
+
+        Offer existingOffer =  offerRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Offer not found with id:" + id));
+        existingOffer.setAcceptance(offer.getAcceptance());
+        existingOffer.setBuyer(offer.getBuyer());
+        existingOffer.setBuyerProposedPrice(offer.getBuyerProposedPrice());
+        existingOffer.setProperty(offer.getProperty());
+
     }
 }

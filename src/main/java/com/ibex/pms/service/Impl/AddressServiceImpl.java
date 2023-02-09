@@ -1,6 +1,7 @@
 package com.ibex.pms.service.Impl;
 
 import com.ibex.pms.domain.Address;
+import com.ibex.pms.exceptions.ResourceNotFoundException;
 import com.ibex.pms.repository.AddressRepo;
 import com.ibex.pms.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,23 +11,30 @@ import java.util.List;
 
 @Service
 public class AddressServiceImpl implements AddressService {
-    AddressRepo repo;
+    AddressRepo addressRepo;
+
+    @Autowired
     public AddressServiceImpl(AddressRepo repo){
-        this.repo = repo;
+        this.addressRepo= repo;
     }
     public List<Address> getAll() {
-        return repo.findAll();
+        return addressRepo.findAll();
     }
     public Address getById(long id){
-        return repo.findById(id).get();
+        return addressRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Addres not found with id:" + id));
     }
     public void deleteById(long id){
-        repo.deleteById(id);
+        addressRepo.deleteById(id);
     }
     public void  save(Address address){
-        repo.save(address);
+
+        addressRepo.save(address);
     }
     public void  update(long id, Address address){
-        //TODO: Implement
+       Address ad = addressRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Offer not found with id:" + id));
+       ad.setCity(address.getCity());
+       ad.setState(address.getState());
+       ad.setStreet(address.getStreet());
+       ad.setZipCode(address.getZipCode());
     }
 }
