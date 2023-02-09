@@ -1,5 +1,7 @@
 package com.ibex.pms.controller;
 
+import com.ibex.pms.domain.Address;
+import com.ibex.pms.domain.Role;
 import com.ibex.pms.domain.User;
 import com.ibex.pms.domain.dto.UserDto;
 import com.ibex.pms.service.UserService;
@@ -26,6 +28,13 @@ public class UserController {
 
     @PostMapping
     public void save(@RequestBody User user) {
+//        Address address = user.getAddress();
+//
+//
+//        Role role = user.getRole();
+//        if(role != null){
+//
+//        }
 
         userService.save(user);
     }

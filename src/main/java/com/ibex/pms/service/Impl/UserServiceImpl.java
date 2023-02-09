@@ -1,8 +1,12 @@
 package com.ibex.pms.service.Impl;
 
+import com.ibex.pms.domain.Address;
+import com.ibex.pms.domain.Role;
 import com.ibex.pms.domain.User;
 import com.ibex.pms.domain.dto.UserDto;
 import com.ibex.pms.exceptions.ResourceNotFoundException;
+import com.ibex.pms.repository.AddressRepo;
+import com.ibex.pms.repository.RoleRepo;
 import com.ibex.pms.repository.UserRepo;
 import com.ibex.pms.service.UserService;
 import jakarta.persistence.EntityManager;
@@ -19,28 +23,53 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
-    UserRepo userRepo;
-    ModelMapper mapper;
+    private UserRepo userRepo;
+    private ModelMapper mapper;
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
+    private RoleRepo roleRepo;
+    private final AddressRepo addressRepo;
 
-    public UserServiceImpl(UserRepo repo, ModelMapper mapper) {
+    public UserServiceImpl(UserRepo repo, ModelMapper mapper,
+                           RoleRepo roleRepo,
+                           AddressRepo addressRepo) {
         this.userRepo = repo;
         this.mapper = mapper;
+        this.roleRepo = roleRepo;
+        this.addressRepo = addressRepo;
     }
 
     public List<User> getAll() {
         return userRepo.findAll();
     }
+
     public User getById(long id) {
         return userRepo.getById(id);
     }
+
     public void deleteById(long id) {
         userRepo.deleteById(id);
     }
+
     public void save(User user) {
-        userRepo.save(user);
+        User updatedUser = user;
+        if (user.getAddress().getId() == 0) {
+            Address address = addressRepo.getAddressByStreetEqualsIgnoreCase(user.getAddress().getStreet());
+            if (address != null)
+                updatedUser.setAddress(address);
+            else
+                addressRepo.save(user.getAddress());
+        }
+
+        if (user.getRole().getId() == 0) {
+            Role role = roleRepo.getByRoleEqualsIgnoreCase(user.getRole().getRole());
+            if (role != null)
+                updatedUser.setRole(role);
+        }
+
+        userRepo.save(updatedUser);
     }
+
     public void update(long id, User user) {
         User record = getById(id);
         if (record != null) {

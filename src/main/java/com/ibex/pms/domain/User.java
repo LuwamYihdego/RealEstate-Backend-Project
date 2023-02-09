@@ -23,10 +23,10 @@ public class User {
     private String lastName;
     private String phoneNumber;
     @OneToOne
-    //@JsonBackReference
+    //@JoinColumn(name = "address_id", nullable = false)
     private Address address;
     @OneToOne
-    //@JsonBackReference
+    //@JoinColumn(name = "role_id", nullable = false)
     private Role role;
     private boolean isActive = Boolean.TRUE;
     @OneToMany(mappedBy = "seller")

@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AddressRepo extends JpaRepository<Address, Long> {
+    Address getAddressByStreetEqualsIgnoreCase(String street);
 }
