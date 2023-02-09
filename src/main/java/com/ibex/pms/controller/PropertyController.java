@@ -1,6 +1,8 @@
 package com.ibex.pms.controller;
 
 import com.ibex.pms.domain.Property;
+import com.ibex.pms.domain.dto.PropertyDto;
+import com.ibex.pms.repository.PropertyRepo;
 import com.ibex.pms.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +15,18 @@ public class PropertyController {
     @Autowired
     PropertyService propertyService;
 
+
     @GetMapping
-    public List<Property> getAllProperties(){
+    public List<PropertyDto> getAllProperties(){
         return propertyService.getAllProperty();
     }
+
+
+
+
+
     @GetMapping("/{id}")
-    public Property getProperty(@PathVariable long id){
+    public PropertyDto getProperty(@PathVariable long id){
         return  propertyService.getPropertyById(id);
     }
     @DeleteMapping("/{id}")
@@ -42,8 +50,10 @@ public class PropertyController {
     public void addPropertyByUserId(@RequestBody Property property, @PathVariable long userId){
         propertyService.updatePropertyByUserId(property, userId);
     }
-
-
+    @GetMapping("/search")
+    public List<PropertyDto> getPropertyByCriteria(@RequestParam double price, @RequestParam int lotSize, @RequestParam int numberOfBedRooms, @RequestParam int numberOfBaths){
+        return propertyService.getPropertyByCriteria(price,lotSize,numberOfBedRooms,numberOfBaths);
+    }
 
 
 }
