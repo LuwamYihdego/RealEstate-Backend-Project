@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public User getById(long id) {
-        return userRepo.getById(id);
+        return userRepo.findById(id).get();
     }
 
     public void deleteById(long id) {
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     public void save(User user) {
         User updatedUser = user;
-        if (user.getAddress().getId() == 0) {
+        if (user.getAddress() != null && user.getAddress().getId() == 0) {
             Address address = addressRepo.getAddressByStreetEqualsIgnoreCase(user.getAddress().getStreet());
             if (address != null)
                 updatedUser.setAddress(address);
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
                 addressRepo.save(user.getAddress());
         }
 
-        if (user.getRole().getId() == 0) {
+        if (user.getRole() != null && user.getRole().getId() == 0) {
             Role role = roleRepo.getByRoleEqualsIgnoreCase(user.getRole().getRole());
             if (role != null)
                 updatedUser.setRole(role);
@@ -71,10 +71,16 @@ public class UserServiceImpl implements UserService {
     }
 
     public void update(long id, User user) {
-        User record = getById(id);
+        User record = entityManager.find(User.class, id);
         if (record != null) {
-            record = user;
-            record.setId(id);
+            record.setFirstName(user.getFirstName());
+            record.setLastName(user.getLastName());
+            record.setEmail(user.getEmail());
+            record.setPhoneNumber(user.getPhoneNumber());
+            record.setPassword(user.getPassword());
+            record.setAddress(user.getAddress());
+            record.setRole(user.getRole());
+            record.setActive(user.isActive());
             entityManager.persist(record);
         }
     }
