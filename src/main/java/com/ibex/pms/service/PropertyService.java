@@ -1,7 +1,6 @@
 package com.ibex.pms.service;
 
 import com.ibex.pms.domain.Property;
-import com.ibex.pms.domain.UserDetails;
 import com.ibex.pms.domain.dto.PropertyDto;
 
 import java.util.List;

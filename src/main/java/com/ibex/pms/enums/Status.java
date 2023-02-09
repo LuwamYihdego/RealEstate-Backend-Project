@@ -1,4 +1,4 @@
-package com.ibex.pms.domain;
+package com.ibex.pms.enums;
 
 public enum Status {
     AVAILABE,
