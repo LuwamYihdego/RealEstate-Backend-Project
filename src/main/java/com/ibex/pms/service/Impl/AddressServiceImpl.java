@@ -4,14 +4,21 @@ import com.ibex.pms.domain.Address;
 import com.ibex.pms.exceptions.ResourceNotFoundException;
 import com.ibex.pms.repository.AddressRepo;
 import com.ibex.pms.service.AddressService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class AddressServiceImpl implements AddressService {
     AddressRepo addressRepo;
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Autowired
     public AddressServiceImpl(AddressRepo repo){
@@ -27,7 +34,6 @@ public class AddressServiceImpl implements AddressService {
         addressRepo.deleteById(id);
     }
     public void  save(Address address){
-
         addressRepo.save(address);
     }
     public void  update(long id, Address address){
@@ -36,5 +42,7 @@ public class AddressServiceImpl implements AddressService {
        ad.setState(address.getState());
        ad.setStreet(address.getStreet());
        ad.setZipCode(address.getZipCode());
+
+       entityManager.persist(ad);
     }
 }
