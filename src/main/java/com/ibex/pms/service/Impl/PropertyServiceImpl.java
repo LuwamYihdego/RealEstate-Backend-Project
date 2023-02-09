@@ -9,18 +9,22 @@ import com.ibex.pms.repository.PropertySearchDao;
 //import com.ibex.pms.repository.UserDetailsRepo;
 import com.ibex.pms.repository.UserRepo;
 import com.ibex.pms.service.PropertyService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-
+@Transactional
 @Service
 public class PropertyServiceImpl implements PropertyService {
 
     PropertyRepo propertyRepo;
-
+    @PersistenceContext
+    EntityManager em;
 
     //@Autowired
     private UserRepo userRepo;
@@ -82,6 +86,7 @@ public class PropertyServiceImpl implements PropertyService {
         prop.setLotSize(property.getLotSize());
         prop.setNumberOfBaths(property.getNumberOfBaths());
         prop.setNumberOfBedRooms(property.getNumberOfBedRooms());
+        em.persist(prop);
     }
 
     @Override
@@ -89,6 +94,7 @@ public class PropertyServiceImpl implements PropertyService {
         User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("Property not found with id:" + userId));
         List<Property> prop = user.getPropertyList();
         prop.add(property);
+        em.persist(user);
     }
 
     @Override

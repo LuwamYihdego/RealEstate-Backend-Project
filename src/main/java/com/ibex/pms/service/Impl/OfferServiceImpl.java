@@ -7,14 +7,19 @@ import com.ibex.pms.repository.AddressRepo;
 import com.ibex.pms.repository.OfferRepo;
 import com.ibex.pms.service.AddressService;
 import com.ibex.pms.service.OfferService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Transactional
 @Service
 public class OfferServiceImpl implements OfferService {
     OfferRepo offerRepo;
+    @PersistenceContext
+    EntityManager em;
 
     @Autowired
     public OfferServiceImpl(OfferRepo repo){
@@ -39,6 +44,7 @@ public class OfferServiceImpl implements OfferService {
         existingOffer.setBuyer(offer.getBuyer());
         existingOffer.setBuyerProposedPrice(offer.getBuyerProposedPrice());
         existingOffer.setProperty(offer.getProperty());
+        em.persist(existingOffer);
 
     }
 }
