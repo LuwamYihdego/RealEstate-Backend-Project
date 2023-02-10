@@ -1,8 +1,9 @@
 package com.ibex.pms.controller;
 
 import com.ibex.pms.domain.Property;
-import com.ibex.pms.domain.dto.PropertyDto;
-import com.ibex.pms.repository.PropertyRepo;
+import com.ibex.pms.domain.dto.OfferResponseDto;
+import com.ibex.pms.domain.dto.PropertyRequestDto;
+import com.ibex.pms.domain.dto.PropertyResponseDto;
 import com.ibex.pms.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,45 +17,46 @@ public class PropertyController {
     @Autowired
     PropertyService propertyService;
 
-
     @GetMapping
-    public List<PropertyDto> getAllProperties(){
-        return propertyService.getAllProperty();
+    public List<PropertyResponseDto> getAll() {
+        return propertyService.getAll();
     }
 
-
-
-
+    @GetMapping("/{id}/offers")
+    public List<OfferResponseDto> getAllOffers(@PathVariable(name="id") Long id) {
+        return propertyService.getAllOffers(id);
+    }
 
     @GetMapping("/{id}")
-    public PropertyDto getProperty(@PathVariable long id){
-        return  propertyService.getPropertyById(id);
+    public PropertyResponseDto getById(@PathVariable(name="id") Long id) {
+        return propertyService.getById(id);
     }
+
     @DeleteMapping("/{id}")
-    public void deletePropertyById(@PathVariable long id ){
-        propertyService.deletePropertyById(id);
+    public void deleteById(@PathVariable(name="id") long id) {
+        propertyService.deleteById(id);
     }
+
     @PutMapping("/{id}")
-    public void updatePropertyById(@RequestBody Property property, @PathVariable long id){
-
-        propertyService.updatePropertyById(property, id);
-
+    public void updateById(@RequestBody PropertyRequestDto property, @PathVariable long id) {
+        propertyService.update(property, id);
     }
+
     @PostMapping()
-    public void createProperty(@RequestBody Property property){
-
-        propertyService.saveProperty(property);
-
+    public void create(@RequestBody PropertyRequestDto property) {
+        propertyService.save(property);
     }
 
-   @PostMapping("/{userId}")
-    public void addPropertyByUserId(@RequestBody Property property, @PathVariable long userId){
-        propertyService.updatePropertyByUserId(property, userId);
-    }
+//    @PostMapping("/{userId}")
+//    public void addByUserId(@RequestBody Property property, @PathVariable long userId) {
+//        propertyService.updateByUserId(property, userId);
+//    }
+
     @GetMapping("/search")
-    public List<PropertyDto> getPropertyByCriteria(@RequestParam double price, @RequestParam int lotSize, @RequestParam int numberOfBedRooms, @RequestParam int numberOfBaths){
-        return propertyService.getPropertyByCriteria(price,lotSize,numberOfBedRooms,numberOfBaths);
+    public List<PropertyResponseDto> getByCriteria(@RequestParam double price,
+                                                   @RequestParam int lotSize,
+                                                   @RequestParam int numberOfBedRooms,
+                                                   @RequestParam int numberOfBaths) {
+        return propertyService.getByCriteria(price, lotSize, numberOfBedRooms, numberOfBaths);
     }
-
-
 }

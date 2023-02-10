@@ -1,6 +1,7 @@
 package com.ibex.pms.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,12 +24,12 @@ public class User {
     private String lastName;
     private String phoneNumber;
     @OneToOne
-    //@JoinColumn(name = "address_id", nullable = false)
     private Address address;
     @OneToOne
-    //@JoinColumn(name = "role_id", nullable = false)
     private Role role;
     private boolean isActive = Boolean.TRUE;
+
     @OneToMany(mappedBy = "seller")
+    @JsonManagedReference
     private List<Property> propertyList;
 }

@@ -4,11 +4,11 @@ spring:
   name: ibex-pms
   datasource:
     password: 1234
-    url: jdbc:postgresql://localhost:5430/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
