@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OfferResponseDto {
     private long id;
-    private UserDto buyer;
+    private BuyerDetailsDto buyer;
     private double buyerProposedPrice;
     private OfferAcceptance acceptance;
 }

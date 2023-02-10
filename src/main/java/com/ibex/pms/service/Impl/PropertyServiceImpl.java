@@ -103,8 +103,15 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public void update(PropertyRequestDto property, long id) {
+        Address address = addressRepo.findById(property.getAddress().getId()).get();
+        address.setCity(property.getAddress().getCity());
+        address.setStreet(property.getAddress().getStreet());
+        address.setState(property.getAddress().getState());
+        address.setZipCode(property.getAddress().getZipCode());
+        em.persist(address);
+
         var prop = propertyRepo.findById(id).get();
-        prop.setAddress(property.getAddress());
+        prop.setAddress(address);
         prop.setDescription(property.getDescription());
         prop.setPropertyNumber(property.getPropertyNumber());
         prop.setPrice(property.getPrice());
@@ -112,15 +119,7 @@ public class PropertyServiceImpl implements PropertyService {
         prop.setLotSize(property.getLotSize());
         prop.setNumberOfBaths(property.getNumberOfBaths());
         prop.setNumberOfBedRooms(property.getNumberOfBedRooms());
-        prop.setSeller(userRepo.getById(property.getSellerId()));
         em.persist(prop);
-
-        Address address = addressRepo.findById(property.getAddress().getId()).get();
-        address.setCity(property.getAddress().getCity());
-        address.setStreet(property.getAddress().getStreet());
-        address.setState(property.getAddress().getState());
-        address.setZipCode(property.getAddress().getZipCode());
-        em.persist(address);
     }
 
 //    @Override

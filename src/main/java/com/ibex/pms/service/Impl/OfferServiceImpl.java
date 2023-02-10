@@ -1,11 +1,13 @@
 package com.ibex.pms.service.Impl;
 
+import com.ibex.pms.domain.BuyerDetails;
 import com.ibex.pms.domain.Offer;
 import com.ibex.pms.domain.Property;
 import com.ibex.pms.domain.User;
 import com.ibex.pms.domain.dto.OfferRequestDto;
 import com.ibex.pms.domain.dto.OfferResponseDto;
 import com.ibex.pms.exceptions.ResourceNotFoundException;
+import com.ibex.pms.repository.BuyerDetailsRepo;
 import com.ibex.pms.repository.OfferRepo;
 import com.ibex.pms.repository.PropertyRepo;
 import com.ibex.pms.repository.UserRepo;
@@ -31,16 +33,19 @@ public class OfferServiceImpl implements OfferService {
     EntityManager em;
     private final PropertyRepo propertyRepo;
     private final UserRepo userRepo;
+    private final BuyerDetailsRepo buyerDetailsRepo;
     private final ModelMapper mapper;
 
     @Autowired
     public OfferServiceImpl(OfferRepo repo,
                             PropertyRepo propertyRepo,
+                            BuyerDetailsRepo buyerDetailsRepo,
                             UserRepo userRepo,
                             ModelMapper mapper) {
         this.offerRepo = repo;
         this.propertyRepo = propertyRepo;
         this.userRepo = userRepo;
+        this.buyerDetailsRepo = buyerDetailsRepo;
         this.mapper = mapper;
     }
 
@@ -66,22 +71,25 @@ public class OfferServiceImpl implements OfferService {
     public void save(OfferRequestDto offerDto) {
         Offer offer = new Offer();
         offer.setProperty(propertyRepo.findById(offerDto.getPropertyId()).get());
-        offer.setBuyer(userRepo.findById(offerDto.getBuyerId()).get());
+
+        User user = userRepo.findById(offerDto.getBuyerId()).get();
+        BuyerDetails buyer = new BuyerDetails();
+        buyer.setFirstName(user.getFirstName());
+        buyer.setLastName(user.getLastName());
+        buyer.setEmail(user.getEmail());
+        buyer.setPhoneNumber(user.getPhoneNumber());
+        buyer.setAddress(user.getAddress());
+        buyerDetailsRepo.save(buyer);
+
+        offer.setBuyer(buyer);
         offer.setAcceptance(offerDto.getAcceptance());
         offer.setBuyerProposedPrice(offerDto.getBuyerProposedPrice());
         offerRepo.save(offer);
     }
 
     public void update(long id, OfferRequestDto offerDto) {
-        //Offer offer = offerRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Offer not found with id:" + id));
-
         Offer offer = offerRepo.findById(id).get();
-        offer.setProperty(null);
-        OfferResponseDto _offerDto = getById(id);
-
         if (offer != null) {
-            offer.setProperty(propertyRepo.getById(offerDto.getId()));
-            offer.setBuyer(userRepo.getById(offerDto.getId()));
             offer.setAcceptance(offerDto.getAcceptance());
             offer.setBuyerProposedPrice(offerDto.getBuyerProposedPrice());
             em.persist(offer);

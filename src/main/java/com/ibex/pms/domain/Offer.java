@@ -22,8 +22,8 @@ public class Offer {
     @JsonBackReference
     private Property property;
     @ManyToOne(fetch = FetchType.LAZY)
-    //@JsonBackReference
-    private User buyer;
+    @JsonBackReference
+    private BuyerDetails buyer;
     private double buyerProposedPrice;
     @Enumerated(EnumType.STRING)
     private OfferAcceptance acceptance;
