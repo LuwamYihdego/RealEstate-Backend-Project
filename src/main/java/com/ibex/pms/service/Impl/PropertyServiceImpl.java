@@ -1,13 +1,11 @@
 package com.ibex.pms.service.Impl;
 
 import com.ibex.pms.domain.Property;
-import com.ibex.pms.domain.User;
 import com.ibex.pms.domain.dto.PropertyDto;
 import com.ibex.pms.exceptions.ResourceNotFoundException;
 import com.ibex.pms.repository.PropertyRepo;
 import com.ibex.pms.repository.PropertySearchDao;
 //import com.ibex.pms.repository.UserDetailsRepo;
-import com.ibex.pms.repository.UserRepo;
 import com.ibex.pms.service.PropertyService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
