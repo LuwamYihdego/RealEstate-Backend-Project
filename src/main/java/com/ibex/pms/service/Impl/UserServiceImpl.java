@@ -9,11 +9,13 @@ import com.ibex.pms.repository.AddressRepo;
 import com.ibex.pms.repository.RoleRepo;
 import com.ibex.pms.repository.UserRepo;
 import com.ibex.pms.service.UserService;
+import com.ibex.pms.util.JwtUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -23,12 +25,22 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    JwtUtil jwtUtil;
+
+
     private UserRepo userRepo;
     private ModelMapper mapper;
     @PersistenceContext
     private EntityManager entityManager;
     private RoleRepo roleRepo;
     private final AddressRepo addressRepo;
+
+
+
 
     public UserServiceImpl(UserRepo repo, ModelMapper mapper,
                            RoleRepo roleRepo,
@@ -169,17 +181,5 @@ public class UserServiceImpl implements UserService {
 
         admin.setActive(Boolean.FALSE);
     }
-//    @Override
-//    public void updateUserById(User user, long id) {
-//
-//        User u = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id:" + id));
-//        u.setFirstName(user.getFirstName());
-//        u.setLastName(user.getLastName());
-//        u.setPhoneNumber(user.getPhoneNumber());
-//        u.setRole(user.getRole());
-//        u.setEmail(user.getEmail());
-//        u.setPassword(user.getPassword());
-//        u.setAddress(user.getAddress());
-//        u.setPropertyList(user.getPropertyList());
-//    }
+
 }
