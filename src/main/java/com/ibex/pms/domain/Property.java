@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,6 +30,9 @@ public class Property {
     private String description;
     private int numberOfBedRooms;
     private int numberOfBaths;
+
+    @Temporal(TemporalType.DATE)
+    private Date createdDate = new Date(System.currentTimeMillis());
     @OneToMany(mappedBy = "property")
     @JsonManagedReference
     private List<Offer> offers;

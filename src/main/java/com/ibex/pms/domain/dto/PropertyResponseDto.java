@@ -6,10 +6,13 @@ import com.ibex.pms.domain.User;
 import com.ibex.pms.enums.Status;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -27,5 +30,6 @@ public class PropertyResponseDto {
     private Status status;
     //private List<Offer> offers;
     private Address address;
-    //private User seller;
+    private UserDto seller;
+    private Date createdDate;
 }

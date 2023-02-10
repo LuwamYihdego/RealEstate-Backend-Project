@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Date;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -27,4 +29,6 @@ public class Offer {
     private double buyerProposedPrice;
     @Enumerated(EnumType.STRING)
     private OfferAcceptance acceptance;
+
+    private Date createdDate = new Date(System.currentTimeMillis());
 }
