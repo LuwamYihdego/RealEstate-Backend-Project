@@ -2,10 +2,13 @@ package com.ibex.pms.service.Impl;
 
 import com.ibex.pms.domain.Address;
 import com.ibex.pms.domain.Role;
+import com.ibex.pms.domain.User;
 import com.ibex.pms.domain.dto.UserDto;
 import com.ibex.pms.exceptions.ResourceNotFoundException;
 import com.ibex.pms.repository.AddressRepo;
 import com.ibex.pms.repository.RoleRepo;
+import com.ibex.pms.repository.UserRepo;
+import com.ibex.pms.service.UserService;
 import com.ibex.pms.util.JwtUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -21,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImplmantation implements UserService {
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -39,9 +42,9 @@ public class UserServiceImpl implements UserService {
 
 
 
-    public UserServiceImpl(UserRepo repo, ModelMapper mapper,
-                           RoleRepo roleRepo,
-                           AddressRepo addressRepo) {
+    public UserServiceImplmantation(UserRepo repo, ModelMapper mapper,
+                                    RoleRepo roleRepo,
+                                    AddressRepo addressRepo) {
         this.userRepo = repo;
         this.mapper = mapper;
         this.roleRepo = roleRepo;
@@ -177,6 +180,10 @@ public class UserServiceImpl implements UserService {
                 .filter(s -> s.getId() == id && s.getRole().equals("admin")).findFirst().orElseThrow(() -> new ResourceNotFoundException("User not found with id:" + id));
 
         admin.setActive(Boolean.FALSE);
+    }
+
+    void test(){
+        System.out.println("test");
     }
 
 }
