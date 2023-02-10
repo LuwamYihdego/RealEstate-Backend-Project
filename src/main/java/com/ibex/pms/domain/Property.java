@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -21,6 +23,9 @@ public class Property {
     private String description;
     private int numberOfBedRooms;
     private int numberOfBaths;
+
+    @OneToMany(mappedBy = "property")
+    private List<Offer> offers;
     @OneToOne(fetch = FetchType.EAGER)
     private Address address;
     @Enumerated(EnumType.STRING)

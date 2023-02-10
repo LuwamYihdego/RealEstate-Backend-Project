@@ -1,5 +1,6 @@
 package com.ibex.pms.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,18 +18,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long  id;
     private String email;
-    private String password;
+    private String password = "Abcd@1234";
     private String firstName;
     private String lastName;
     private String phoneNumber;
     @OneToOne
+    //@JoinColumn(name = "address_id", nullable = false)
     private Address address;
     @OneToOne
+    //@JoinColumn(name = "role_id", nullable = false)
     private Role role;
-//    @OneToOne(fetch = FetchType.LAZY)
-//    private UserDetails userDetails;
     private boolean isActive = Boolean.TRUE;
-    private boolean isDeleted = Boolean.FALSE;
     @OneToMany(mappedBy = "seller")
     private List<Property> propertyList;
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/offers")
+@CrossOrigin("*")
 public class OfferController {
     OfferService service;
     public OfferController(OfferService service){
@@ -17,16 +18,19 @@ public class OfferController {
     }
     @GetMapping
     public List<Offer> getAll(){
+
         return service.getAll();
     }
 
     @GetMapping("/{id}")
     public Offer getById(@PathVariable long id){
+
         return  service.getById(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable long id ){
+
         service.deleteById(id);
     }
     @PutMapping("/{id}")
@@ -35,6 +39,7 @@ public class OfferController {
     }
     @PostMapping()
     public void save(@RequestBody Offer offer){
+
         service.save(offer);
     }
 }
