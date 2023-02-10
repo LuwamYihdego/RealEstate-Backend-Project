@@ -182,4 +182,8 @@ public class UserServiceImpl implements UserService {
         admin.setActive(Boolean.FALSE);
     }
 
+    void test(){
+        System.out.println("test");
+    }
+
 }
