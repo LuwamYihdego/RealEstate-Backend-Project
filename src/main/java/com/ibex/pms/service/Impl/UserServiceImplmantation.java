@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImplmantation implements UserService {
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -42,9 +42,9 @@ public class UserServiceImpl implements UserService {
 
 
 
-    public UserServiceImpl(UserRepo repo, ModelMapper mapper,
-                           RoleRepo roleRepo,
-                           AddressRepo addressRepo) {
+    public UserServiceImplmantation(UserRepo repo, ModelMapper mapper,
+                                    RoleRepo roleRepo,
+                                    AddressRepo addressRepo) {
         this.userRepo = repo;
         this.mapper = mapper;
         this.roleRepo = roleRepo;
