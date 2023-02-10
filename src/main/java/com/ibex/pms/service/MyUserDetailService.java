@@ -1,5 +1,6 @@
 package com.ibex.pms.service;
 
+import com.ibex.pms.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

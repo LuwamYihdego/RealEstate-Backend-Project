@@ -2,10 +2,13 @@ package com.ibex.pms.service.Impl;
 
 import com.ibex.pms.domain.Address;
 import com.ibex.pms.domain.Role;
+import com.ibex.pms.domain.User;
 import com.ibex.pms.domain.dto.UserDto;
 import com.ibex.pms.exceptions.ResourceNotFoundException;
 import com.ibex.pms.repository.AddressRepo;
 import com.ibex.pms.repository.RoleRepo;
+import com.ibex.pms.repository.UserRepo;
+import com.ibex.pms.service.UserService;
 import com.ibex.pms.util.JwtUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
