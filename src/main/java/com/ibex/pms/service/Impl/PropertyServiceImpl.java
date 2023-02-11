@@ -15,9 +15,11 @@ import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.comparator.Comparators;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,6 +58,7 @@ public class PropertyServiceImpl implements PropertyService {
         return list
                 .stream()
                 .map(p -> mapper.map(p, OfferResponseDto.class))
+                .sorted(Comparator.comparing(c -> c.getCreatedDate()))
                 .collect(Collectors.toList());
     }
 
@@ -66,6 +69,7 @@ public class PropertyServiceImpl implements PropertyService {
         return list
                 .stream()
                 .map(p -> mapper.map(p, PropertyResponseDto.class))
+                .sorted(Comparator.comparing(c -> c.getCreatedDate()))
                 .collect(Collectors.toList());
     }
 

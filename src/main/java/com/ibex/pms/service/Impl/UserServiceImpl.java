@@ -51,26 +51,34 @@ public class UserServiceImpl implements UserService {
         userRepo.deleteById(id);
     }
 
-    public void save(User user) {
-        User updatedUser = user;
+    public void save(UserDto user) {
+        User newUser = new User();
+
+        newUser.setEmail(user.getEmail());
+        newUser.setPhoneNumber(user.getPhoneNumber());
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+
         if (user.getAddress() != null && user.getAddress().getId() == 0) {
             Address address = addressRepo.getAddressByStreetEqualsIgnoreCase(user.getAddress().getStreet());
             if (address != null)
-                updatedUser.setAddress(address);
-            else
+                newUser.setAddress(address);
+            else {
                 addressRepo.save(user.getAddress());
+                newUser.setAddress(user.getAddress());
+            }
         }
 
         if (user.getRole() != null && user.getRole().getId() == 0) {
             Role role = roleRepo.getByRoleEqualsIgnoreCase(user.getRole().getRole());
             if (role != null)
-                updatedUser.setRole(role);
+                newUser.setRole(role);
         }
 
-        userRepo.save(updatedUser);
+        userRepo.save(newUser);
     }
 
-    public void update(long id, User user) {
+    public void update(long id, UserDto user) {
         User record = entityManager.find(User.class, id);
         if (record != null) {
             record.setFirstName(user.getFirstName());

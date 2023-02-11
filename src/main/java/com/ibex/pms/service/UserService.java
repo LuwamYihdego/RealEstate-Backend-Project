@@ -17,8 +17,8 @@ public interface UserService {
     List<User> getAll();
     User getById(long id);
     void deleteById(long id);
-    void save(User user);
-    void update(long id, User user);
+    void save(UserDto user);
+    void update(long id, UserDto user);
 
     /*
     * End for eager load

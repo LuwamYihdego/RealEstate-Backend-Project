@@ -19,7 +19,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long  id;
     private String email;
-    private String password = "Abcd@1234";
+    private String password = "123";
     private String firstName;
     private String lastName;
     private String phoneNumber;

@@ -34,20 +34,12 @@ public class UserController {
     }
 
     @PostMapping
-    public void save(@RequestBody User user) {
-//        Address address = user.getAddress();
-//
-//
-//        Role role = user.getRole();
-//        if(role != null){
-//
-//        }
-
+    public void save(@RequestBody UserDto user) {
         userService.save(user);
     }
 
     @PutMapping("/{id}")
-    public void updateById(@RequestBody User user,
+    public void updateById(@RequestBody UserDto user,
                            @PathVariable Long id) {
         userService.update(id, user);
     }
