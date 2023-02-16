@@ -1,7 +1,5 @@
 package com.ibex.pms.controller;
 
-import com.ibex.pms.domain.Address;
-import com.ibex.pms.domain.Role;
 import com.ibex.pms.domain.User;
 import com.ibex.pms.domain.dto.UserDto;
 import com.ibex.pms.service.UserService;
@@ -12,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/users")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
     @Autowired
     UserService userService;
@@ -20,12 +17,6 @@ public class UserController {
     @GetMapping()
     public List<User> getAll() {
         return userService.getAll();
-    }
-
-    @GetMapping("/{id}")
-    public User getById(@PathVariable(name="id") Long id) {
-        User user = userService.getById(id);
-        return user;
     }
 
     @DeleteMapping("/{id}")
