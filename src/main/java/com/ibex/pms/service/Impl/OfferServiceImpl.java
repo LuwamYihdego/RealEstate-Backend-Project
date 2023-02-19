@@ -2,11 +2,9 @@ package com.ibex.pms.service.Impl;
 
 import com.ibex.pms.domain.BuyerDetails;
 import com.ibex.pms.domain.Offer;
-import com.ibex.pms.domain.Property;
 import com.ibex.pms.domain.User;
-import com.ibex.pms.domain.dto.OfferRequestDto;
-import com.ibex.pms.domain.dto.OfferResponseDto;
-import com.ibex.pms.exceptions.ResourceNotFoundException;
+import com.ibex.pms.domain.dto.request.OfferRequestDto;
+import com.ibex.pms.domain.dto.response.OfferResponseDto;
 import com.ibex.pms.repository.BuyerDetailsRepo;
 import com.ibex.pms.repository.OfferRepo;
 import com.ibex.pms.repository.PropertyRepo;
@@ -20,9 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

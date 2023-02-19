@@ -1,9 +1,8 @@
 package com.ibex.pms.controller;
 
-import com.ibex.pms.domain.Property;
-import com.ibex.pms.domain.dto.OfferResponseDto;
-import com.ibex.pms.domain.dto.PropertyRequestDto;
-import com.ibex.pms.domain.dto.PropertyResponseDto;
+import com.ibex.pms.domain.dto.response.OfferResponseDto;
+import com.ibex.pms.domain.dto.request.PropertyRequestDto;
+import com.ibex.pms.domain.dto.response.PropertyResponseDto;
 import com.ibex.pms.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

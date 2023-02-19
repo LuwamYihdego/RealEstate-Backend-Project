@@ -1,10 +1,11 @@
-package com.ibex.pms.util;
+package com.ibex.pms.service.Impl;
 
+import com.ibex.pms.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-public class EmailServiceImpl implements EmailService{
+public class EmailServiceImpl implements EmailService {
 
     @Autowired(required = true)
     private JavaMailSender sender;

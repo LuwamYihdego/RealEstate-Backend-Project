@@ -14,13 +14,11 @@ import java.util.List;
 public class RoleController {
     RoleService service;
     public RoleController(RoleService service){
-
         this.service = service;
     }
 
     @GetMapping
     public List<Role> getAll(){
-
         return service.getAll();
     }
 

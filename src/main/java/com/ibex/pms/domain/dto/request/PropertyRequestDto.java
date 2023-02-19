@@ -1,4 +1,4 @@
-package com.ibex.pms.domain.dto;
+package com.ibex.pms.domain.dto.request;
 
 import com.ibex.pms.domain.Address;
 import com.ibex.pms.domain.Offer;

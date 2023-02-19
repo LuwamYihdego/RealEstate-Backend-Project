@@ -1,26 +1,22 @@
-package com.ibex.pms.domain.dto;
+package com.ibex.pms.domain.dto.request;
 
 import com.ibex.pms.domain.Property;
 import com.ibex.pms.domain.User;
 import com.ibex.pms.enums.OfferAcceptance;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OfferResponseDto {
+public class OfferRequestDto {
     private long id;
-    private BuyerDetailsDto buyer;
-    private PropertyResponseDto property;
+    private long propertyId;
+    private long buyerId;
     private double buyerProposedPrice;
+    @Enumerated(EnumType.STRING)
     private OfferAcceptance acceptance;
-    private Date createdDate;
 }

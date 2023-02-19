@@ -1,6 +1,5 @@
 spring:
   application:
-  #    name: spring-data-lab5
   name: ibex-pms
   datasource:
     password: 1234

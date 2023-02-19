@@ -22,5 +22,4 @@ public class Role {
     private String role;
     @Temporal(TemporalType.DATE)
     private Date createdDate = new Date(System.currentTimeMillis());
-
 }

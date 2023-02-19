@@ -1,8 +1,7 @@
 package com.ibex.pms.controller;
 
-import com.ibex.pms.domain.Offer;
-import com.ibex.pms.domain.dto.OfferRequestDto;
-import com.ibex.pms.domain.dto.OfferResponseDto;
+import com.ibex.pms.domain.dto.request.OfferRequestDto;
+import com.ibex.pms.domain.dto.response.OfferResponseDto;
 import com.ibex.pms.service.OfferService;
 import org.springframework.web.bind.annotation.*;
 

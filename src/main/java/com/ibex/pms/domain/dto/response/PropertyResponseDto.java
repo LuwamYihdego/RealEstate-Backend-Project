@@ -1,19 +1,15 @@
-package com.ibex.pms.domain.dto;
+package com.ibex.pms.domain.dto.response;
 
 import com.ibex.pms.domain.Address;
-import com.ibex.pms.domain.Offer;
-import com.ibex.pms.domain.User;
+import com.ibex.pms.domain.dto.request.UserRequestDto;
 import com.ibex.pms.enums.Status;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,6 +26,6 @@ public class PropertyResponseDto {
     private Status status;
     //private List<Offer> offers;
     private Address address;
-    private UserDto seller;
+    private UserRequestDto seller;
     private Date createdDate;
 }
