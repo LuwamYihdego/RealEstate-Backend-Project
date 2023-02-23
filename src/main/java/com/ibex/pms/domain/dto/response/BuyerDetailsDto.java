@@ -1,5 +1,6 @@
-package com.ibex.pms.domain.dto;
+package com.ibex.pms.domain.dto.response;
 
+import com.ibex.pms.domain.Address;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,11 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDetailsDto {
+public class BuyerDetailsDto {
     private int id;
+    private String email;
     private String firstName;
     private String lastName;
-    private String email;
     private String phoneNumber;
-    private String password;
+    private Address address;
 }

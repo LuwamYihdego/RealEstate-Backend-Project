@@ -1,8 +1,7 @@
 package com.ibex.pms.controller;
 
-import com.ibex.pms.domain.Address;
-import com.ibex.pms.domain.Offer;
-import com.ibex.pms.service.AddressService;
+import com.ibex.pms.domain.dto.request.OfferRequestDto;
+import com.ibex.pms.domain.dto.response.OfferResponseDto;
 import com.ibex.pms.service.OfferService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,29 +16,25 @@ public class OfferController {
         this.service = service;
     }
     @GetMapping
-    public List<Offer> getAll(){
-
+    public List<OfferResponseDto> getAll(){
         return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public Offer getById(@PathVariable long id){
-
+    public OfferResponseDto getById(@PathVariable long id){
         return  service.getById(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable long id ){
-
         service.deleteById(id);
     }
     @PutMapping("/{id}")
-    public void update(@RequestBody Offer offer, @PathVariable long id){
+    public void update(@RequestBody OfferRequestDto offer, @PathVariable long id){
         service.update(id, offer);
     }
     @PostMapping()
-    public void save(@RequestBody Offer offer){
-
+    public void save(@RequestBody OfferRequestDto offer){
         service.save(offer);
     }
 }

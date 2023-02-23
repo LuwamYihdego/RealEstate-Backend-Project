@@ -1,7 +1,8 @@
 package com.ibex.pms.service;
 
 import com.ibex.pms.domain.User;
-import com.ibex.pms.domain.dto.UserDto;
+import com.ibex.pms.domain.dto.request.UserRequestDto;
+import com.ibex.pms.domain.dto.response.UserResponseDto;
 
 import java.util.List;
 
@@ -12,25 +13,25 @@ public interface UserService {
      * for eager load
      * */
 
-    List<User> getAll();
-    User getById(long id);
+    List<UserResponseDto> getAll();
+    UserResponseDto getById(long id);
     void deleteById(long id);
-    void save(User user);
-    void update(long id, User user);
+    void save(UserRequestDto user);
+    void update(long id, UserRequestDto user);
 
     /*
      * End for eager load
      * */
 
-    UserDto getCustomerById(long id);
-    UserDto getOwnerById(long id);
-    UserDto getAdminById(long id);
-    List<UserDto> getAllUsers();
-    List<UserDto>getAllCustomers();
-    List<UserDto>getAllOwners();
-    List<UserDto>getAllAdmin();
-    void deleteCustomerById(long id);
-    void deleteOwnerById(long id);
-    void deleteAdminById(long id);
+//    UserResponseDto getCustomerById(long id);
+//    UserResponseDto getOwnerById(long id);
+//    UserResponseDto getAdminById(long id);
+//    List<UserResponseDto> getAllUsers();
+//    List<UserResponseDto>getAllCustomers();
+//    List<UserResponseDto>getAllOwners();
+//    List<UserResponseDto>getAllAdmin();
+//    void deleteCustomerById(long id);
+//    void deleteOwnerById(long id);
+//    void deleteAdminById(long id);
     //void updateUserById(User user, long id);
 }

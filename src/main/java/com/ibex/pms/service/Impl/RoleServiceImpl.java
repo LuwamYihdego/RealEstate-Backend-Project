@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Transactional
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -22,23 +23,31 @@ public class RoleServiceImpl implements RoleService {
     EntityManager em;
 
     @Autowired
-    public RoleServiceImpl(RoleRepo repo){
+    public RoleServiceImpl(RoleRepo repo) {
         this.roleRepo = repo;
     }
+
     public List<Role> getAll() {
         return roleRepo.findAll();
     }
-    public Role getById(long id){
-        return roleRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Offer not found with id:" + id));
+
+    public Role getById(long id) {
+        return roleRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Role not found with id:" + id));
     }
-    public void deleteById(long id){
+
+    public void deleteById(long id) {
         roleRepo.deleteById(id);
     }
-    public void  save(Role role){
-        roleRepo.save(role);
+
+    public void save(Role role) {
+        if (roleRepo.getByRoleEqualsIgnoreCase(role.getRole()) == null)
+            roleRepo.save(role);
+        else
+            throw new ResourceNotFoundException("Duplicate role");
     }
-    public void  update(long id, Role role){
-        Role r = roleRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Offer not found with id:" + id));
+
+    public void update(long id, Role role) {
+        Role r = roleRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Role not found with id:" + id));
         r.setRole(role.getRole());
         em.persist(r);
     }

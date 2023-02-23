@@ -1,10 +1,8 @@
 package com.ibex.pms.enums;
 
 public enum Status {
-    AVAILABE,
+    AVAILABLE,
     PENDING,
     CONTINGENT,
     SOLD;
-
-
 }
